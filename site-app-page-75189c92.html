@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>竞彩资讯 · 轻量导航</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #f4f8fe; /* 柔和蓝底 */
+      color: #133240;
+      line-height: 1.6;
+      padding: 0 1rem 3rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 轻量导航 */
+    .top-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0 0.8rem;
+      border-bottom: 1px solid rgba(18, 95, 115, 0.18);
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(145deg, #248f7c, #0f6b70);
+      border-radius: 10px 2px 10px 2px;
+      transform: rotate(3deg);
+      box-shadow: 0 2px 6px rgba(23, 102, 102, 0.25);
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: -0.4px;
+      color: #0b4e5a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1e5f6b;
+      font-weight: 500;
+      padding: 0.2rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: #1e9b8a;
+      color: #0a3a44;
+    }
+
+    /* Hero / 主题引入 */
+    .hero {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 620;
+      color: #083b45;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.3px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 740px;
+      color: #1d5562;
+      background: rgba(255, 255, 255, 0.55);
+      padding: 0.6rem 1rem;
+      border-radius: 30px 8px 30px 8px;
+      backdrop-filter: blur(2px);
+      border-left: 4px solid #1f9b87;
+    }
+
+    /* 核心介绍段落 */
+    .intro-block {
+      max-width: 1200px;
+      margin: 2rem auto 1.8rem;
+      background: #ffffffd6;
+      backdrop-filter: blur(2px);
+      padding: 1.8rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 65, 65, 0.06);
+    }
+
+    .intro-block p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #1b4550;
+    }
+
+    .intro-block .link-sentence {
+      background: #e7f3f2;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+    }
+
+    .intro-block a {
+      color: #0b6f63;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #1e9b8a;
+    }
+
+    .intro-block a:hover {
+      background: #d3ece8;
+      border-bottom-style: solid;
+    }
+
+    /* 三场景卡片网格 */
+    .scene-grid {
+      max-width: 1200px;
+      margin: 2.4rem auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .scene-card {
+      background: #ffffff;
+      border-radius: 26px 10px 26px 10px;
+      padding: 1.6rem 1.3rem 1.8rem;
+      box-shadow: 0 8px 14px rgba(1, 71, 71, 0.05);
+      transition: transform 0.2s, box-shadow 0.25s;
+      border: 1px solid #daeef0;
+    }
+
+    .scene-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(22, 102, 100, 0.08);
+      border-color: #72c7bb;
+    }
+
+    .scene-icon {
+      display: inline-block;
+      font-size: 1.7rem;
+      margin-bottom: 0.5rem;
+      background: #def5f1;
+      width: 48px;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+      border-radius: 18px 4px 18px 4px;
+      color: #0a6b62;
+    }
+
+    .scene-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0b4956;
+      margin: 0.6rem 0 0.4rem;
+      letter-spacing: -0.2px;
+    }
+
+    .scene-card p {
+      color: #255f69;
+      font-size: 0.95rem;
+    }
+
+    .scene-card small {
+      display: block;
+      margin-top: 0.7rem;
+      color: #2b7e7a;
+      font-size: 0.85rem;
+      border-top: 1px solid #d0eae6;
+      padding-top: 0.5rem;
+    }
+
+    /* 常见说明 / 精简FAQ */
+    .faq-zone {
+      max-width: 1200px;
+      margin: 1.8rem auto 0;
+      background: white;
+      border-radius: 24px;
+      padding: 1.6rem 2rem 2rem;
+      box-shadow: 0 4px 14px rgba(0, 70, 75, 0.04);
+    }
+
+    .faq-zone h2 {
+      font-size: 1.5rem;
+      font-weight: 620;
+      color: #0b4956;
+      margin-bottom: 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 3px solid #8fd1c5;
+      display: inline-block;
+    }
+
+    .faq-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      color: #093f49;
+      font-size: 1rem;
+    }
+
+    .faq-a {
+      color: #26616b;
+      margin-top: 0.2rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid #b2dfd7;
+    }
+
+    .faq-a a {
+      color: #0b6f63;
+      text-decoration: underline wavy 1px rgba(24, 121, 108, 0.2);
+      font-weight: 500;
+    }
+
+    .faq-a a:hover {
+      text-decoration: underline;
+      background: #dff3ef;
+      border-radius: 4px;
+    }
+
+    /* 响应式移动 */
+    @media (max-width: 760px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem 1.6rem;
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .intro-block {
+        padding: 1.3rem 1.2rem;
+      }
+
+      .scene-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .faq-zone {
+        padding: 1.2rem 1rem 1.8rem;
+      }
+
+      .faq-zone h2 {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0 0.6rem 2rem;
+      }
+
+      .logo-text {
+        font-size: 1.1rem;
+      }
+
+      .nav-links {
+        gap: 0.8rem 0.9rem;
+        font-size: 0.85rem;
+      }
+
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* 小彩蛋: 蓝绿点 */
+    .dot-accent {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22a393;
+      border-radius: 50%;
+      margin: 0 6px 0 2px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="top-bar">
+    <div class="logo-area">
+      <span class="logo-mark"></span>
+      <span class="logo-text">竞彩·情境</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#intro">概览</a>
+      <a href="#scenes">场景</a>
+      <a href="#faq">说明</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>赛事数据 · 轻量导航</h1>
+    <p>从分析框架到实时参考，围绕体育竞猜的认知辅助。</p>
+  </section>
+
+  <!-- 核心介绍段落 (包含链接自然嵌入) -->
+  <section id="intro" class="intro-block">
+    <p>
+      信息聚合与赛前参考是许多爱好者关注的重点。 
+      <span class="link-sentence">
+        资讯站点 <a href="https://site-app-jingcai.com">竞彩网</a> 
+        提供赛事数据、赔率变动以及球队近况摘要。
+      </span>
+      这些内容能够辅助使用者快速建立赛前认知，但最终判断仍应结合个人分析与理性评估。
+    </p>
+    <p>
+      竞猜本身具有不确定性，任何数据工具都只能呈现历史与概率。 
+      熟悉联赛风格、阵容变化以及主客场表现，往往比单一看赔率更有价值。 
+      下面列出了三个典型的知识应用场景，帮助理解如何将数据与实际观赛结合。
+    </p>
+  </section>
+
+  <!-- 三场景卡片网格 -->
+  <section id="scenes" class="scene-grid">
+    <div class="scene-card">
+      <span class="scene-icon">📊</span>
+      <h3>历史交锋梳理</h3>
+      <p>对比两队近五场同主客数据，留意红黄牌、射正次数以及半场节奏。这些细项往往揭示战术克制关系。</p>
+      <small>例如：某队客场面对高位逼抢时失误率上升13%</small>
+    </div>
+    <div class="scene-card">
+      <span class="scene-icon">⚙️</span>
+      <h3>阵容与轮换</h3>
+      <p>一周双赛或杯赛前夕，主力轮换幅度直接影响即战力。关注赛前发布会及伤病名单，比预期阵容更可靠。</p>
+      <small>核心中场若连续首发超过270分钟，跑动能力常出现下滑。</small>
+    </div>
+    <div class="scene-card">
+      <span class="scene-icon">🌡️</span>
+      <h3>指数区间解读</h3>
+      <p>赔率变化反映市场资金流向，但极端倾斜时需反向评估。结合多家机构横向对比，可过滤部分噪音。</p>
+      <small>相同区间在五大联赛与次级联赛中的指向性并不一致。</small>
+    </div>
+  </section>
+
+  <!-- 常见说明 (FAQ 摘要) -->
+  <section id="faq" class="faq-zone">
+    <h2>⌨️ 常见理解</h2>
+
+    <div class="faq-item">
+      <span class="faq-q">① 数据参考与最终结果的关系？</span>
+      <span class="faq-a">数据反映历史事实与市场预期，但足球等赛事存在大量随机因素。建议将资讯作为背景板，而非单一决策依据。更多背景可前往 <a href="https://site-app-jingcai.com">竞彩网</a> 浏览。</span>
+    </div>
+
+    <div class="faq-item">
+      <span class="faq-q">② 为什么强调“轻量导航”？</span>
+      <span class="faq-a">避免信息过载。多数爱好者只需要关键数据点：近期走势、伤停、天气、裁判风格。掌握这些已能形成基本判断框架，无需沉迷于数十项高阶统计。</span>
+    </div>
+
+    <div class="faq-item">
+      <span class="faq-q">③ 如何保持理性参与？</span>
+      <span class="faq-a">设定预算与时间边界，将竞猜视为观赛的辅助乐趣。<span class="dot-accent"></span> 任何平台都应仅作工具使用。</span>
+    </div>
+  </section>
+
+  <!-- 页脚装饰 (无链接但内容干净) -->
+  <footer style="max-width:1200px; margin:2rem auto 0; text-align:center; font-size:0.8rem; color:#346f78; border-top:1px solid #c4e0db; padding-top:1rem;">
+    <span>基于公开数据 · 理性参考</span>
+  </footer>
+
+</body>
+</html>
