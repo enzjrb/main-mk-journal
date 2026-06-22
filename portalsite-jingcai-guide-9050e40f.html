@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞彩网 · 信息卡片介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background-color: #fafafa;
+            color: #222;
+            line-height: 1.75;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 780px;
+            width: 100%;
+        }
+
+        /* Hero 区 — 极简留白，大字标题 */
+        .hero {
+            padding: 4rem 0 2.5rem;
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #111;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 90%;
+        }
+
+        /* 通用卡片样式 — 极白背景，轻柔阴影 */
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.25s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.01em;
+            border-left: 3px solid #d4d4d4;
+            padding-left: 1rem;
+        }
+
+        .card p, .card li {
+            color: #3d3d3d;
+            font-size: 1rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0.2rem;
+        }
+
+        .card ul li {
+            padding: 0.45rem 0;
+            padding-left: 1.4rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #999;
+            font-weight: bold;
+        }
+
+        /* 适合人群 — 两列布局 */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .audience-item {
+            background: #f5f5f5;
+            border-radius: 14px;
+            padding: 1.2rem 1.2rem;
+        }
+
+        .audience-item strong {
+            display: block;
+            font-weight: 500;
+            color: #111;
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .audience-item span {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* 自然链接段落 — 纯文字嵌入 */
+        .link-section {
+            margin: 2.5rem 0 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .link-section p {
+            font-size: 1.05rem;
+            color: #3a3a3a;
+            line-height: 1.85;
+        }
+
+        .link-section a {
+            color: #1a4c8a;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #cbdae9;
+            transition: border-color 0.2s;
+        }
+
+        .link-section a:hover {
+            border-bottom-color: #1a4c8a;
+        }
+
+        /* FAQ 摘要 — 简洁问题列表 */
+        .faq-mini {
+            margin: 2rem 0 3rem;
+        }
+
+        .faq-mini h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 1.2rem;
+            border-left: 3px solid #d4d4d4;
+            padding-left: 1rem;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .faq-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 450;
+            color: #111;
+            font-size: 1.05rem;
+        }
+
+        .faq-a {
+            color: #4a4a4a;
+            font-size: 0.95rem;
+            padding-left: 0.5rem;
+        }
+
+        /* 提示块 */
+        .tip-note {
+            background: #f3f5f8;
+            border-radius: 18px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            font-size: 0.98rem;
+            color: #3b3b3b;
+            border-left: 4px solid #b0bccb;
+        }
+
+        .tip-note a {
+            color: #1a4c8a;
+            text-decoration: none;
+            border-bottom: 1px solid #cbdae9;
+        }
+
+        .tip-note a:hover {
+            border-bottom-color: #1a4c8a;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+
+            .card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .card h2 {
+                font-size: 1.25rem;
+            }
+
+            .link-section p {
+                font-size: 1rem;
+            }
+
+            .faq-mini h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .card {
+                padding: 1.2rem 1rem;
+            }
+
+            .tip-note {
+                padding: 1rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>日常查询 · 对照 · 延伸阅读</h1>
+            <p>围绕竞彩信息，构建一份轻量的索引式卡片。不堆砌，只整理。</p>
+        </div>
+
+        <!-- 卡片区域 -->
+        <div class="card-grid">
+
+            <!-- 主视觉卡片：用途卡片 – 日常查询 -->
+            <div class="card">
+                <h2>查数据 · 看对照</h2>
+                <p>许多人在看比赛前，会先翻一翻近期走势、让分参考或历史交锋。一套简洁、可快速对照的信息结构，能省下不少来回切换的时间。</p>
+                <ul>
+                    <li>联赛与杯赛基础数据整理</li>
+                    <li>让球 / 胜平负 基础对照</li>
+                    <li>比分分布与常见赛果概览</li>
+                    <li>竞彩场次编号快速定位</li>
+                </ul>
+            </div>
+
+            <!-- 用途卡片 + 延伸阅读 -->
+            <div class="card">
+                <h2>延伸阅读 · 理解背景</h2>
+                <p>除了当场数据，赛前简报、球队近况、伤病名单以及天气影响，都会让判断多一些维度。很多用户习惯在赛前花几分钟浏览这类轻内容。</p>
+                <ul>
+                    <li>球队近五场表现与得失球</li>
+                    <li>主客场差异与关键球员动态</li>
+                    <li>同类赛事历史同赔 / 同盘参考</li>
+                </ul>
+                <p style="margin-top: 0.8rem; color: #4f4f4f;">这些信息不一定改变结果，但能让阅读更完整。</p>
+            </div>
+
+            <!-- 适合人群 卡片 -->
+            <div class="card">
+                <h2>适合人群</h2>
+                <div class="audience-grid">
+                    <div class="audience-item">
+                        <strong>日常参考型</strong>
+                        <span>习惯赛前花十分钟看数据对比，找感觉。</span>
+                    </div>
+                    <div class="audience-item">
+                        <strong>信息整理型</strong>
+                        <span>喜欢把竞彩场次、让球、赔率变动放在一起横向浏览。</span>
+                    </div>
+                    <div class="audience-item">
+                        <strong>延伸阅读型</strong>
+                        <span>不只看数据，还想了解球队近况与场外因素。</span>
+                    </div>
+                    <div class="audience-item">
+                        <strong>轻度关注型</strong>
+                        <span>偶尔看看焦点战对照，不深度参与。</span>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem; color: #555;">以上四类读者都可以在这套卡片索引里找到自己关注的信息节奏。</p>
+            </div>
+        </div>
+
+        <!-- 自然链接段落（纯文字嵌入，无诱导） -->
+        <div class="link-section">
+            <p>
+                日常查询时，许多用户会直接打开 <a href="https://portalsite-jingcai.com">竞彩网</a> 的页面，把赛程、编号与让球数据并列对照。也有读者习惯先看一遍球队近况，再回到数据页面做交叉比对。这种一边浏览一边对照的方式，对于快速建立赛前印象很有帮助。如果你也是先看数据再读背景的类型，不妨把 <a href="https://portalsite-jingcai.com">竞彩网</a> 作为一个固定的起始页，日常查询会流畅不少。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要（非标准FAQ，而是常见问题式摘要） -->
+        <div class="faq-mini">
+            <h2>常见问题 · 摘要</h2>
+            <div class="faq-item">
+                <span class="faq-q">如何快速找到当天所有竞彩场次？</span>
+                <span class="faq-a">通常在竞彩发布页会按比赛时间列出编号、主客队和让球数。部分站点还提供按联赛筛选的功能。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">让球数据与胜平负如何对照阅读？</span>
+                <span class="faq-a">可以先看让球数值，再看对应胜平负奖金，两者结合能更快理解数据倾向。多数对照表会并列展示。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">延伸阅读一般包含哪些内容？</span>
+                <span class="faq-a">球队近况、伤停、历史同赔参考、天气以及赛前发布会摘要，属于常见的延伸信息。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">页面上的数据多久更新一次？</span>
+                <span class="faq-a">数据跟随竞彩官方发布节奏，通常每天上午更新当日场次，赛前可能会有微调。</span>
+            </div>
+        </div>
+
+        <!-- 提示块（温和提醒） -->
+        <div class="tip-note">
+            <strong>提示：</strong> 本页仅提供信息索引与对照思路，所有数据请以官方发布为准。如果你需要更完整的赛程与赔率页面，直接访问 <a href="https://portalsite-jingcai.com">竞彩网</a> 即可看到最新内容。阅读时请保持理性，娱乐为主。
+        </div>
+
+        <!-- 极简脚注 -->
+        <div style="margin: 3rem 0 0.5rem; font-size: 0.8rem; color: #aaa; text-align: center; border-top: 1px solid #eaeaea; padding-top: 1.5rem;">
+            信息卡片 · 日常查询对照
+        </div>
+
+    </div>
+</body>
+</html>
